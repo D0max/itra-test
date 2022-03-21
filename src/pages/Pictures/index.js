@@ -20,7 +20,8 @@ class Pictures extends Component {
       .then(json => this.setState(prev => ({...prev, albumsId: json})))
   };
 
-  deletePhoto(id) {
+  deletePhoto(e, id) {
+    e.stopPropagation()
     const {photos} = this.state
     const newPhotosArr = photos.filter((item) => item.id !== id)
     this.setState(prev => ({...prev, photos: newPhotosArr}));
@@ -48,7 +49,7 @@ class Pictures extends Component {
       <div>
         <FilterTable filterPhoto={(e) => this.filterPhoto(e)} albumsId={albumsId}/>
         <Table
-          deletePhoto={(id) => this.deletePhoto(id)}
+          deletePhoto={(e, id) => this.deletePhoto(e, id)}
           data={photos}
           setSelectedPhoto={(e) => this.setSelectedPhoto(e)}
         />
